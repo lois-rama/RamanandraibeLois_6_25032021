@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FishEye</title>
     <link rel="stylesheet" href="../CSS/index.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 <!-- HEADER -->
-    <header class="header" id="header">
-        <h1><a href="index.html" ><img src="/IMAGES/fisheye-logo.png" alt="LOGO"></a></h1>
-        <nav>
+    <header class="header" id="header" role="bannière">
+        <a href="index.html" aria-label="FishEye Home Page">
+            <img src="/IMAGES/fisheye-logo.png" alt="Logo FishEye">
+        </a>
+        <nav aria-label="photographer categories" role="navigation">
             <ul class="filters">
                 <li id="portrait">#Portrait</li>
                 <li id="art">#Art</li>
@@ -27,14 +31,14 @@
 
 <!-- PHOTOGRAPHES -->
 <main>
-    <h2>Nos photographes</h2>
+    <h1>Nos photographes</h1>
     <div id="container"></div>
 </main>
 
 <!--BTN "Passer au contenu" -->
-<a role="button" href="#header" id="passer-au-contenu">Passer au contenu</a>
+<a role="button" aria-label="Retour en haut de la page" href="#header" id="passer-au-contenu" >Passer au contenu</a>
 
-<script src="../JS/index.js"></script>
+<script src="../JAVASCRIPT/index.js"></script>
 
 </body>
 </html>
