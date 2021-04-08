@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FishEye</title>
     <link rel="stylesheet" href="../CSS/photographer.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
 </head>
@@ -29,8 +30,8 @@
     <div class="dropdown">
         <i class="fas fa-chevron-down" id="dropdown_btn"></i>
         <button class="dropbtn trierBtn">Popularité</button>
-        <i class="fas fa-chevron-up fa-chevron-up-NO" id="close-up-icon"></i>
-        <div id="myDropdown" class="dropdown_content">
+        <i class="fas fa-chevron-up fa-chevron-up-NO"></i>
+        <div id="dropdown" class="dropdown_content">
             <a href="#" class="trierBtn">Date</a>
             <a href="#" class="trierBtn">Titre</a>
         </div>
@@ -40,13 +41,13 @@
     <div id="photographer_gallery"></div>
 
     <!--LIGHTBOX-->
-    <div id="lightBoxc_container">
+    <div id="lightBox_container">
     <div id="lightBox_body">
         <i class="fas fa-times close_icon"></i>
         <i class="fas fa-chevron-left left_icon"></i>
         <i class="fas fa-chevron-right right_icon"></i>
         <div id="photo-placeholder"></div>
-        <div id="photo-name">Photo Name here</div>
+        <div id="photo-name"></div>
     </div>
     </div>
 
@@ -54,7 +55,7 @@
     <div id="form_container">
         <div class="form_container">
             <h1>Contactez-moi<br></h1>
-            <p id="name_photographe"></p>
+            <p id="name_photographer"></p>
             <form>
                 <p id="X-button"><i class="fas fa-times"></i></p>
                 <label>Prénom</label><br>

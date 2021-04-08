@@ -38,10 +38,6 @@ header img {
 
 }
 
-.filters>ul{
-    padding: 0%;
-}
-
 .filters>li{
     border: 1px solid #C4C4C4;
     border-radius: 15px;
@@ -65,4 +61,93 @@ main>h1{
     position: absolute;
     top: 3rem;
     right: 5%;
+}
+#container{
+    width: 100%;
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.photographerContainer{
+    width: 22rem;
+    margin: 0.5rem;
+    padding: 0.3rem;
+}
+.portraitBox{
+    width: 20rem;
+    height: 20rem;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 1px 1px 20px 3px rgba(128, 128, 128, 0.356)
+}
+
+.portraitBox>img{
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+}
+.name, .city, .tags, .tagline, .price{
+    text-align: center;
+}
+
+.name{
+    color: #D3573C;
+    margin-bottom: 0;
+    margin-bottom: 0.7rem;
+}
+
+.price{
+    color: #757575;
+    margin: 0;
+}
+
+.city{
+    color: #901C1C;
+    margin: 0.2rem;
+}
+
+.tagline{
+    margin: 0 ;
+}
+
+.tag {
+    border: 1px solid #C4C4C4;
+    border-radius: 20px; 
+    padding: 0.2rem 0.4rem;
+    color: #901C1C;
+}
+.photographer-tags{
+    cursor: pointer;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 0 0.2rem;
+}
+
+.photographerContainer>ul{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    justify-content: center;
+}
+
+.photographer-tags:hover {
+    background-color: #901C1C;
+    color: white;
+}
+.active{
+    background-color: #901C1C !important;
+    color: white !important;
+}
+
+.photographerContainer>a{
+    text-decoration: none;
 }
