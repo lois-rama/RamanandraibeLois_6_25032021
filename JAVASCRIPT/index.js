@@ -1,15 +1,26 @@
-fetch("../data.json")
+async function getData(url){
+  const data = await fetch(url)
     .then(response => response.json())
-    .then(data => {
-        displayDefault(data);
-        filterPhotographersTags(data);
-        displayPhotographers(data)
-    })
+    .then (data => data);
+    return data;
+}
+const data = getData("../data.json")
+console.log(data);
 
-function displayDefault(data) {
-
-    data.photographers.map(photographer => { 
-      const photographersContainer = document.getElementById('container');
+    class Photograph {
+      constructor(photographer) {
+        this.id = photographer.id,
+        this.name = photographer.name,
+        this.portrait = photographer.portrait,
+        this.country = photographer.country,
+        this.city = photographer.city,
+        this.tagline = photographer.tagline,
+        this.price = photographer.price,
+        this.tags = photographer.tags
+      }
+    
+      getTemplate(containerId){
+        const photographersContainer = document.getElementById(containerId);
       const articlePhotographers = document.createElement("article");
       const photographerTemplate = `
       <div class="photographerContainer">
@@ -17,22 +28,33 @@ function displayDefault(data) {
           <div class="portraitBox">
             <img src="${photographer.portrait}" alt="Photo de ${photographer.name}">
           </div>
-          <h1 class="name">${photographer.name}</h1>
+          <h2 class="name">${photographer.name}</h2>
         </a>
         <p class="city">${photographer.city}, ${photographer.country}</p>
         <p class="tagline">${photographer.tagline}</p>
         <p class="price">${photographer.price}€/jour</p>
-        <ul class="tags">${photographer.tags.map(tag => `<li id=${tag} class="tag photographer-tags">#${tag}</li>`).join(" ")}</ul>  
+        <ul class="tags">${photographer.tags.map(tag => `<li data-filter=${tag} class="tag photographer-tags">#${tag}</li>`).join(" ")}</ul>  
       </div>
       `  
       photographersContainer.appendChild(articlePhotographers);
       articlePhotographers.innerHTML = photographerTemplate;
-        }); 
-      };
+      }
+    }
+
+
+function displayDefault() {
+ data.photographers.forEach(p => { 
+    const photographer = new Photograph(p);
+    photographer.getTemplate('container')
+  }); 
+};
+  
+  displayDefault();
+
       
 function filterElements(data, tag){
   data.photographers.forEach(photographer => {
-    if(photographer.tags.indexOf(tag.id || tag) != -1) {
+    if(photographer.tags.includes(tag.dataset.filter)) {
       const photographersContainer = document.getElementById('container');
       const articlePhotographers = document.createElement("article");
       const photographerTemplate = `
@@ -41,16 +63,17 @@ function filterElements(data, tag){
           <div class="portraitBox">
             <img src="${photographer.portrait}" alt="Photo de ${photographer.name}">
           </div>
-          <h1 class="name">${photographer.name}</h1>
+          <h2 class="name">${photographer.name}</h2>
         </a>
         <p class="city">${photographer.city}, ${photographer.country}</p>
         <p class="tagline">${photographer.tagline}</p>
         <p class="price">${photographer.price}€/jour</p>
-        <ul class="tags">${photographer.tags.map(tag => `<li id=${tag} class="tag photographer-tags">#${tag}</li>`).join(" ")}</ul>  
+        <ul class="tags">${photographer.tags.map(tag => `<li data-filter=${tag} class="tag photographer-tags">#${tag}</li>`).join(" ")}</ul>  
       </div>
       `  
       photographersContainer.appendChild(articlePhotographers);
       articlePhotographers.innerHTML = photographerTemplate;
+
     }
   })
 }
