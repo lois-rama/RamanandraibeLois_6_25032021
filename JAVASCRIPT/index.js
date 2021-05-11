@@ -21,7 +21,6 @@ function filterElements(data, tag){
     if(photographer.tags.includes(tag.dataset.filter)) {
       const photographerProfil = new Photograph(photographer);
     photographerProfil.getTemplate('container')
-
     }
   })
 }
@@ -62,3 +61,15 @@ document.addEventListener('click', function(event) {
     }
   });
 };
+
+const btnContenu = document.getElementById("passer-au-contenu");
+
+window.addEventListener('scroll', () => {
+  const scrollPosition = window.scrollY;
+
+  if( scrollPosition < 20){
+    btnContenu.style.display = "none";
+  }else{
+    btnContenu.style.display = "block";
+  }
+})

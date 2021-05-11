@@ -151,3 +151,25 @@ main>h1{
 .photographerContainer>a{
     text-decoration: none;
 }
+
+#passer-au-contenu{
+    position: fixed;
+    top: 1.5rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    background-color: #DB8876;
+    border-radius: 8px;
+    padding: 0.4rem 0.7rem;
+    color: black;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    display: none;
+    text-decoration: none;
+}
+
+#passer-au-contenu:hover{
+    color: white;
+    background-color: #901C1C;
+}
