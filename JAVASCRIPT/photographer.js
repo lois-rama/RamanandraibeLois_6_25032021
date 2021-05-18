@@ -60,7 +60,7 @@ function photographerWork(media){
             ${videoOrImage(element.image, element.video, element)}
           </div>   
           <div class="text">
-            <h3> ${element.photoName}</h3><p>${element.price}€<span class='under-photo-info'> ${element.likes} <i class="fas fa-heart heartIcon"></i></span></p>
+            <h2> ${element.photoName}</h2><p>${element.price}€<span class='under-photo-info'> ${element.likes} <i class="fas fa-heart heartIcon"></i></span></p>
           </div>
         `
       articlePhoto.innerHTML = galleryTemplate;
@@ -111,10 +111,10 @@ function incrementLikesOnClick() {
 // Factory media
 function videoOrImage(image, video, element) {
   if ('image' in element){
-    return ` <img class="photos" aria-label="${element.photoName}" src="${image}" alt="${element.photoName}">`
+    return ` <img tabindex="0" class="photos" src="${image}" alt="${element.alt}">`
   }
   else if ('video' in element){
-    return ` <video class="photos" aria-label="${element.photoName}" src="${video}" alt="${element.photoName}" width="300px" height="300px" controls=0></video>`
+    return ` <video tabindex="0" class="photos"  src="${video}" aria-label="${element.alt}" controls=0></video>`
   }
 }
 // Open LightBox
