@@ -63,7 +63,7 @@ function photographerWork(media){
             ${videoOrImage(element.image, element.video, element)}
           </div>   
           <div class="text">
-            <h2> ${element.photoName}</h2><p>${element.price}€<span class='under-photo-info'> ${element.likes} <i tabindex="0" class="fas fa-heart heartIcon"></i></span></p>
+            <h2> ${element.photoName}</h2><p>${element.price}€<span class='under-photo-info'> ${element.likes} <i tabindex="0" aria-label"Button like" class="fas fa-heart heartIcon"></i></span></p>
           </div>
         `
       articlePhoto.innerHTML = galleryTemplate;
@@ -80,7 +80,7 @@ function likesAndPrice(likesTotal, price){
   const domDiv = document.getElementById('likesPrices');
   const newDiv = document.createElement("div");
   const likesPriceTemplate = `
-  <div id='likesBox' class="likes">${likesTotal} <i tabindex="0" class="fas fa-heart"></i></div>
+  <div id='likesBox' class="likes">${likesTotal} <i tabindex="0" aria-label"likes total" class="fas fa-heart"></i></div>
   <div class="price">${price}€ / jour</div>  
   `
     newDiv.classList.add('likesPriceContainer')
@@ -93,7 +93,7 @@ function incrementLikesOnClick() {
   heartIcons.forEach((likeIcon, index) => likeIcon.addEventListener('click', () => {
     
     // if the index of current photo is in the Array RETURN the index and stop executin IF NOT run the code block
-    if (existingLikes.includes(index)) {return }
+    if (existingLikes.includes(index)) {return } // if the media is already liked
     else{
       const individualLikeBox = document.getElementsByClassName('under-photo-info');
       const totalLikesDivBox = document.getElementById("likesBox");
@@ -103,8 +103,8 @@ function incrementLikesOnClick() {
   
       let globalNumberOfLikes = likes.reduce(function(a, b){return a + b;}); // return the sum of the array
   
-      individualLikeBox[index].innerHTML = `<span> ${likesAfterAddition} <i class="fas fa-heart heartIcon"></i></span>`
-      totalLikesDivBox.innerHTML = `<div>${globalNumberOfLikes} <i class="fas fa-heart"></i></div>`
+      individualLikeBox[index].innerHTML = `<span> ${likesAfterAddition} <i aria-label"Button like" class="fas fa-heart heartIcon"></i></span>`
+      totalLikesDivBox.innerHTML = `<div>${globalNumberOfLikes} <i aria-label"likes total" class="fas fa-heart"></i></div>`
     }
       // add the index of liked item to existingLikes Array everytime we click a photo
       existingLikes.push(index)

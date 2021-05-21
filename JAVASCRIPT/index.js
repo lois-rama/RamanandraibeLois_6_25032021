@@ -38,7 +38,7 @@ buttons.forEach(btn => btn.addEventListener("click", () => {
 }
 addActiveClass();
 
-//Filtres a partir de la navigation
+//Filtres a partir de la navigation 
 function displayPhotographers(data){
 
   const buttons = document.querySelectorAll(".filters li button");

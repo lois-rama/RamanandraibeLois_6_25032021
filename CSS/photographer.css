@@ -321,10 +321,9 @@ header img {
 /* FORM */
 
 .form_container{
-    width: 25rem;
+    width: 20rem;
     background-color: #DB8876;
     padding: 1rem;
-    position: relative;
     position: absolute;
     left: 50%;
     top: 50%;
