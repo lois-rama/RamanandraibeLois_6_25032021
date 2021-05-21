@@ -43,8 +43,14 @@ header img {
     border: 1px solid #a1a0a0;
     border-radius: 20px;
     padding: 0.2rem 0.3rem;
+    margin-bottom: 1rem !important;
     color:  #901C1C;
     cursor: pointer;
+}
+
+.tags:hover{
+    background-color: #901C1C;
+    color: white;
 }
 
 .tagline{
@@ -65,6 +71,21 @@ header img {
     position: absolute;
     top: 9.8rem;
     font-family: inherit;
+}
+@media (max-width: 600px) {
+    .profil-container>button{
+    left: 50%;
+    top:90%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    }
+    .likesPriceContainer{
+        display: none !important;
+    }
+    .portraitBox>img{
+        width: 100px !important;
+        height: 100px !important;
+    }
 }
 
 .portraitBox>img{
@@ -221,9 +242,22 @@ header img {
         font-size: 1.2rem;
         font-weight: 500;
         padding: 1.25rem;
+        list-style: none;
     }
 
-    .sort-btn {
+    .sort{
+        outline: none;
+        background: transparent;
+        border: 1px solid transparent;
+        font-size: 1rem;
+        color: white;
+        font-family: 'DM Sans', sans-serif;
+    }
+    .sort:focus{
+        background-color: #651414;      
+    }     
+
+    #sort-btn {
         align-items: center;
         background: #901c1c;
         border: none;
@@ -232,11 +266,12 @@ header img {
         display: flex;
         font-size: 1rem;
         font-weight: 500;
+        font-family: 'DM Sans', sans-serif;
         justify-content: flex-start;
         left: 11rem;
         padding: .625rem 1.25rem;
         position: absolute;
-        top: 25.6rem;
+        top: 26rem;
         width: 10rem;
     }
 
@@ -273,6 +308,10 @@ header img {
         align-items: center;
         display: flex;
         justify-content: space-between;
+        border-radius: 1rem 1rem 0 0;
+    }
+    ul#hidden-sort li:nth-child(3){
+        border-radius: 0 0 1rem 1rem;
     }
     .show {
         display: block !important;
@@ -297,9 +336,13 @@ header img {
 }
 
 .form_container>h1{
-    margin-top: 0;
+    margin: 0;
 }
-
+#name_photographer{
+    font-weight: 900;
+    font-size: 1.7rem;
+    margin: 0;
+}
 .form_container>form>input{
     width: 97%;
     height: 1.8rem;
@@ -322,11 +365,13 @@ header img {
     border: none;
     cursor: pointer;
     font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.9rem;
 }
 
 #X-button{
     position: absolute;
-    top: -0.9rem;
+    top: 1rem;
     right: 1rem;
     font-size: 2rem;
     color: white;

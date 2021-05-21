@@ -14,6 +14,19 @@ body{
     margin-bottom: 1rem;
     width: 75%;
 }
+@media (max-width: 600px){
+    .header{
+        width: 100%;
+    }
+    .filters{
+        padding: 0 !important;
+    }
+    main>h1{
+        position: initial !important;
+        text-align: center;
+        font-size: 2rem !important;
+    }
+}
 
 .header>a{
     color: #901C1C;
@@ -38,17 +51,20 @@ header img {
 
 }
 
-.filters>li{
+.filters>li>button{
     border: 1px solid #C4C4C4;
     border-radius: 15px;
     padding: 0.2rem 0.4rem;
     color: #9c2e2e;
+    background: white;
     margin: 0 0.1rem;
     cursor: pointer;
     font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
 }
 
-.filters>li:hover{
+.filters>li>button:hover{
     background-color: #901C1C;
     color: white;
 }
@@ -130,6 +146,9 @@ main>h1{
     flex-direction: column;
     flex-wrap: wrap;
     margin: 0 0.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    
 }
 
 .photographerContainer>ul{
@@ -137,6 +156,8 @@ main>h1{
     flex-wrap: wrap;
     padding: 0;
     justify-content: center;
+    list-style-type: none;
+
 }
 
 .photographer-tags:hover {

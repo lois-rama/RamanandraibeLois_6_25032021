@@ -4,7 +4,10 @@ fetch('../data.json')
 .then(data => {
     photographerProfil(data);;
     openLightBox(data);
+    openLightBoxEnter(data);
+    incrementLikesOnEnter();
     incrementLikesOnClick();
+    
     DATA = data;
 })
 
@@ -15,7 +18,7 @@ let likes = [];
 let existingLikes = [];
 let modifiedArray = [];
 
-// Profil
+// Profil Template
 function photographerProfil(data){
   const id = window.location.search.split('id=')[1];  
   const photographers = !id ? data.photographers: data.photographers.filter(photographer => photographer.id == id);
@@ -29,7 +32,7 @@ function photographerProfil(data){
         <h1>${element.name}</h1>
         <p>${element.city}, ${element.country}</p>
         <p class="tagline">${element.tagline}</p>
-        <p >${element.tags.map(tag => `<a id="tags-photo" href="index.html?id=${tag}" class='tags'>#${tag}</a>`).join(" ")}</p>
+        <p>${element.tags.map(tag => `<a id="tags-photo" href="index.html?id=${tag}" class='tags'>#${tag}</a>`).join(" ")}</p>
         </div>
         <button id="contact">Contactez-moi</button>
         <div class="portraitBox">
@@ -40,12 +43,12 @@ function photographerProfil(data){
     articlePhoto.innerHTML = profilTemplate;
     sectionPhoto.appendChild(articlePhoto);
 
-    showModal(element);
-    let likesTotal = photographerWork(data.media);
+    showModal(element);  // function for contact form is called.
+    let likesTotal = photographerWork(data.media); // the function returns the total likes of the medias.
     likesAndPrice(likesTotal, price);
   }) 
 }
-// Gallery
+// Gallery template
 function photographerWork(media){
   let likesTotal = 0;
   const photographerId = window.location.search.split('id=')[1];  
@@ -53,14 +56,14 @@ function photographerWork(media){
     if(photographerId == element.photographerId){
       const sectionPhoto = document.getElementById('photographer_gallery');
       const articlePhoto = document.createElement("article");
-      likesTotal += element.likes;
+      likesTotal += element.likes; // all the likes are stocked inside the variable
       const galleryTemplate = `         
         <div class="photo-box"> 
           <div class="photo" data-id=${element.id}>
             ${videoOrImage(element.image, element.video, element)}
           </div>   
           <div class="text">
-            <h2> ${element.photoName}</h2><p>${element.price}€<span class='under-photo-info'> ${element.likes} <i class="fas fa-heart heartIcon"></i></span></p>
+            <h2> ${element.photoName}</h2><p>${element.price}€<span class='under-photo-info'> ${element.likes} <i tabindex="0" class="fas fa-heart heartIcon"></i></span></p>
           </div>
         `
       articlePhoto.innerHTML = galleryTemplate;
@@ -68,16 +71,16 @@ function photographerWork(media){
 
       if ( 'image' in element) {currentPhotographerPhotos.push(element.image), photoName.push(element.photoName)};
       if ( 'video' in element) {currentPhotographerPhotos.push(element.video), photoName.push(element.photoName)}
-      likes.push(element.likes);
+      likes.push(element.likes); // // the function returns the total likes of the medias.
   }})
   return likesTotal;
 }
-// Likes 
+// Likes and Price box
 function likesAndPrice(likesTotal, price){
   const domDiv = document.getElementById('likesPrices');
   const newDiv = document.createElement("div");
   const likesPriceTemplate = `
-  <div id='likesBox' class="likes">${likesTotal} <i class="fas fa-heart"></i></div>
+  <div id='likesBox' class="likes">${likesTotal} <i tabindex="0" class="fas fa-heart"></i></div>
   <div class="price">${price}€ / jour</div>  
   `
     newDiv.classList.add('likesPriceContainer')
@@ -89,7 +92,7 @@ function incrementLikesOnClick() {
   const heartIcons = Array.from(document.getElementsByClassName('heartIcon')); // multiple heart icons
   heartIcons.forEach((likeIcon, index) => likeIcon.addEventListener('click', () => {
     
-    // if the index of current photo is in the Arrey RETURN the index and stop executin IF NOT run the code block
+    // if the index of current photo is in the Array RETURN the index and stop executin IF NOT run the code block
     if (existingLikes.includes(index)) {return }
     else{
       const individualLikeBox = document.getElementsByClassName('under-photo-info');
@@ -108,7 +111,31 @@ function incrementLikesOnClick() {
   }))
 }
 
-// Factory media
+function incrementLikesOnEnter() {
+  const heartIcons = Array.from(document.getElementsByClassName('heartIcon')); // multiple heart icons
+  heartIcons.forEach((likeIcon, index) => likeIcon.addEventListener('keydown', (key) => {
+    if(key.code == "Enter"){
+    // if the index of current photo is in the Array RETURN the index and stop executin IF NOT run the code block
+      if (existingLikes.includes(index)) {return }
+      else{
+        const individualLikeBox = document.getElementsByClassName('under-photo-info');
+        const totalLikesDivBox = document.getElementById("likesBox");
+  
+        let likesAfterAddition = likes[index] + 1;  // add 1 like to the individual current photo
+        likes.splice(index, 1, likesAfterAddition); // replace the old value from the Array with the new value
+  
+        let globalNumberOfLikes = likes.reduce(function(a, b){return a + b;}); // return the sum of the array
+  
+        individualLikeBox[index].innerHTML = `<span> ${likesAfterAddition} <i class="fas fa-heart heartIcon"></i></span>`
+        totalLikesDivBox.innerHTML = `<div>${globalNumberOfLikes} <i class="fas fa-heart"></i></div>`
+    }
+        // add the index of liked item to existingLikes Array everytime we click a photo
+        existingLikes.push(index)
+    }
+  }))
+}
+
+// Factory media checks if the data is a image or video and display the right one
 function videoOrImage(image, video, element) {
   if ('image' in element){
     return ` <img tabindex="0" class="photos" src="${image}" alt="${element.alt}">`
@@ -136,6 +163,26 @@ function openLightBox() {
     photoNameText.innerHTML = `${nameSrc}`     
   }))
 }
+// open lightbox on key pressed Enter
+function openLightBoxEnter() {
+  const getPhotos = Array.from(document.getElementsByClassName('photos'));
+  getPhotos.forEach((photo, index) => photo.addEventListener("keydown", (key) => {
+    if(key.code == "Enter"){
+      const photo = document.getElementById('photoDiv');
+      const lightBoxcontainer = document.getElementById('lightBox_container');
+      const photoNameText = document.getElementById('photo-name');
+      const src = currentPhotographerPhotos[index];
+      const nameSrc = photoName[index];  
+      currentIndex = index;
+
+      lightBoxcontainer.style.display = 'block';
+      if (src.endsWith("jpg")){photo.innerHTML = `<img class="photos" src="${src}">`}
+      else {photo.innerHTML = `<video controls="controls" class="photos" src="${src}">`}
+    
+      photoNameText.innerHTML = `${nameSrc}`
+    }    
+  }))
+}
 // bouttons suivant et précédent
 function handleNextPrevButtons() {
   const previousBtn = document.querySelector('.left_icon');
@@ -144,12 +191,13 @@ function handleNextPrevButtons() {
   const photoNameText = document.getElementById('photo-name');
 
   previousBtn.addEventListener('click', () => {
-    currentIndex -= 1;
-    if (currentIndex < 0) {
+    currentIndex -= 1; // index change and display the previous media
+    if (currentIndex < 0) { // the loop of media is maintained
       currentIndex = currentPhotographerPhotos.length - 1;
     }
     const src = currentPhotographerPhotos[currentIndex];
-    if (src.endsWith("jpg")){photo.innerHTML = `<img class="photos" src="${src}">`}
+    //display the right media
+    if (src.endsWith("jpg")){photo.innerHTML = `<img class="photos" src="${src}">`} 
     else {photo.innerHTML = `<video controls="controls" class="photos" src="${src}">`} 
 
     const nameSrc = photoName[currentIndex]; 
@@ -157,11 +205,12 @@ function handleNextPrevButtons() {
   });
 
   nextBtn.addEventListener('click', () => {
-    currentIndex += 1;
-    if (currentIndex > currentPhotographerPhotos.length - 1) {
+    currentIndex += 1; // index change and display the previous media
+    if (currentIndex > currentPhotographerPhotos.length - 1) { // the loop of media is maintained
       currentIndex = 0;
     }
     const src = currentPhotographerPhotos[currentIndex];
+    //display the right media
     if (src.endsWith("jpg")){photo.innerHTML = `<img class="photos" src="${src}">`}
     else {photo.innerHTML = `<video controls="controls" class="photos" src="${src}">`} 
 
@@ -174,6 +223,17 @@ function handleNextPrevButtons() {
   if(key.code == "Escape"){
     const lightBoxcontainer = document.getElementById('lightBox_container');
     lightBoxcontainer.style.display = 'none';
+    //close contact modal
+    const formModal = document.getElementById('form_container');
+    formModal.style.display = "none";
+    document.getElementById('contact').style.display = "block";
+    //close sort button
+    const hidenPart = document.getElementById("hidden-sort");
+    const chevronUpIcon = document.getElementById('arrow-down-open');
+    const chevronDownIcon = document.getElementById('arrow-up-close');  
+        hidenPart.classList.remove("show");
+        chevronUpIcon.classList.add("fa-chevron-up-NO");
+        chevronDownIcon.classList.toggle("fa-chevron-up-NO");
   }
 
   //ArrowRight KEY
@@ -202,10 +262,10 @@ function handleNextPrevButtons() {
 
     const nameSrc = photoName[currentIndex]; 
     photoNameText.innerHTML = `${nameSrc}`  
-  }
+  }   
 });
 }
-handleNextPrevButtons()
+handleNextPrevButtons() // function is called here!
 
 // close the lightbox
 function closeLightBox(){
@@ -292,7 +352,7 @@ function checkEmail(border, email, errorElt, errorMessage ) {
 }
 
 //OPEN DropDown
-document.getElementById('arrow-down-open').addEventListener('click', () => {
+document.getElementById('sort-btn').addEventListener('click', () => {
   const hidenPart = document.getElementById("hidden-sort");
   const chevronUpIcon = document.getElementById('arrow-down-open');
   const chevronDownIcon = document.getElementById('arrow-up-close');  
@@ -316,28 +376,32 @@ trierParBtn.forEach((btn, index) => btn.addEventListener('click', () => {
 
 if( index == 0) {
   //////////// sort by POPULARITY //////////////   
-  modifiedArray = DATA.media.sort((a, b) => {return b.likes - a.likes})
+  modifiedArray = DATA.media.sort((a, b) => {return b.likes - a.likes}) //comparation of the likes 
   document.getElementById("photographer_gallery").innerHTML = "";
   likes = [];
   currentPhotographerPhotos = [];
-  photographerWork(modifiedArray);
-  openLightBox(DATA)
+  photographerWork(modifiedArray); //the gallery is displayed with the new order of medias
+  openLightBox(DATA) //function is called with new data
   incrementLikesOnClick()
+  openLightBoxEnter(DATA);
+  incrementLikesOnEnter();
           
 }else if (index == 1) {
   /////////// sort by DATE /////////////////////    
-  modifiedArray = DATA.media.sort((a, b) => { return new Date(a.date).valueOf() - new Date(b.date).valueOf();}) 
+  modifiedArray = DATA.media.sort((a, b) => { return new Date(a.date).valueOf() - new Date(b.date).valueOf();}) //comparation of the date
   document.querySelector("#photographer_gallery").innerHTML = "";;
   likes = [];
   currentPhotographerPhotos = [];
   photographerWork(modifiedArray);
   openLightBox(DATA)
   incrementLikesOnClick()
+  openLightBoxEnter(DATA);
+  incrementLikesOnEnter();
 
 }else if ( index == 2) {
   ////////////// sort by ALFABETIC ORDER ///////
-  modifiedArray = DATA.media.sort((a, b) => {
-  if(a.photoName.toLowerCase() < b.photoName.toLowerCase()) { return -1;}
+  modifiedArray = DATA.media.sort((a, b) => { //comparation of the strings
+  if(a.photoName.toLowerCase() < b.photoName.toLowerCase()) { return -1;} 
   else if (a.photoName.toLowerCase() > b.photoName.toLowerCase()) {return 1;}
   })
       document.querySelector("#photographer_gallery").innerHTML = "";;
@@ -345,7 +409,9 @@ if( index == 0) {
       currentPhotographerPhotos = [];
       photographerWork(modifiedArray);
       openLightBox(DATA)
-      incrementLikesOnClick()
+      incrementLikesOnClick();
+      openLightBoxEnter(DATA);
+      incrementLikesOnEnter();
 
   }
 }));

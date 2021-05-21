@@ -24,7 +24,7 @@ export class Photograph {
           <p class="city">${this.city}, ${this.country}</p>
           <p class="tagline">${this.tagline}</p>
           <p class="price">${this.price}€/jour</p>
-          <ul class="tags">${this.tags.map(tag => `<li data-filter=${tag} class="tag photographer-tags">#${tag}</li>`).join(" ")}</ul>  
+          <ul class="tags">${this.tags.map(tag => `<li><button data-filter=${tag} class="tag photographer-tags">#${tag}</button></li>`).join(" ")}</ul>  
         </div>
       `  
     photographersContainer.appendChild(articlePhotographers);
