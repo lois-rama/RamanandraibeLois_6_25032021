@@ -411,3 +411,8 @@ div>.price{
 .heartIcon{
     cursor: pointer;
 }
+.tagsProfil{
+    display: flex;
+    flex-direction: column;
+    max-width: fit-content;
+}

@@ -32,7 +32,7 @@ function photographerProfil(data){
         <h1>${element.name}</h1>
         <p>${element.city}, ${element.country}</p>
         <p class="tagline">${element.tagline}</p>
-        <p>${element.tags.map(tag => `<a id="tags-photo" href="index.html?id=${tag}" class='tags'>#${tag}</a>`).join(" ")}</p>
+        <p class="tagsProfil">${element.tags.map(tag => `<a id="tags-photo" href="index.html?id=${tag}" class='tags'>#${tag}</a>`).join(" ")}</p>
         </div>
         <button id="contact">Contactez-moi</button>
         <div class="portraitBox">
@@ -45,7 +45,7 @@ function photographerProfil(data){
 
     showModal(element);  // function for contact form is called.
     let likesTotal = photographerWork(data.media); // the function returns the total likes of the medias.
-    likesAndPrice(likesTotal, price);
+    likesAndPrice(likesTotal, price); //function display likes total and prices box is called here
   }) 
 }
 // Gallery template
@@ -71,9 +71,9 @@ function photographerWork(media){
 
       if ( 'image' in element) {currentPhotographerPhotos.push(element.image), photoName.push(element.photoName)};
       if ( 'video' in element) {currentPhotographerPhotos.push(element.video), photoName.push(element.photoName)}
-      likes.push(element.likes); // // the function returns the total likes of the medias.
+      likes.push(element.likes); 
   }})
-  return likesTotal;
+  return likesTotal;// the function returns the total likes of the medias.
 }
 // Likes and Price box
 function likesAndPrice(likesTotal, price){

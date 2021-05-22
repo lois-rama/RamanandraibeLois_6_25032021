@@ -4,6 +4,7 @@ fetch("../data.json")
         displayDefault(data);
         displayPhotographers(data);
         filterPhotographersTags(data);
+        removeActiveClass(data)
     })
 
 import {Photograph} from "./photographer_template.js"; //import the class 'Photograph'
@@ -27,17 +28,27 @@ function filterElements(data, tag){
 
 //Ajout de la classe "Active" 
 function addActiveClass() {
-
+const allBtn = document.getElementById("all");
 const buttons = document.querySelectorAll(".filters li button");
 buttons.forEach(btn => btn.addEventListener("click", () => {
   //1-st loop through every button and remove the class ACTIVE
   buttons.forEach(btn => btn.classList.remove('active'));
   // ajout ACTIVE au btn cliqué
-  btn.classList.add('active'); 
+  btn.classList.add('active');
+  allBtn.style.display = "inline"
   }));
 }
 addActiveClass();
 
+function removeActiveClass() {
+  const allBtn = document.getElementById("all");
+  allBtn.addEventListener("click", () => {
+    if(allBtn.classList.contains('active')){
+      document.location.reload();
+    }
+    });
+  }
+removeActiveClass()
 //Filtres a partir de la navigation 
 function displayPhotographers(data){
 

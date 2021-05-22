@@ -40,6 +40,9 @@ header img {
     width: 15rem;
 }
 
+#all{
+    display: none;
+}
 .filters{
     margin-top: auto;
     margin-bottom: auto;
@@ -194,3 +197,4 @@ main>h1{
     color: white;
     background-color: #901C1C;
 }
+
