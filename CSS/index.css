@@ -163,10 +163,7 @@ main>h1{
 
 }
 
-.photographer-tags:hover {
-    background-color: #901C1C;
-    color: white;
-}
+
 .active{
     background-color: #901C1C !important;
     color: white !important;

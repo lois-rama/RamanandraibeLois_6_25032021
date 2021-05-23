@@ -13,6 +13,7 @@ export class Photograph {
     getTemplate(containerId){
       const photographersContainer = document.getElementById(containerId);
       const articlePhotographers = document.createElement("article");
+      articlePhotographers.className = this.tags.join(" ") + ' articleProfil';
       const photographerTemplate = `
         <div class="photographerContainer">
           <a href="photographer.html?id=${this.id}">
@@ -24,7 +25,7 @@ export class Photograph {
           <p class="city">${this.city}, ${this.country}</p>
           <p class="tagline">${this.tagline}</p>
           <p class="price">${this.price}€/jour</p>
-          <ul class="tags">${this.tags.map(tag => `<li><button data-filter=${tag} class="tag photographer-tags">#${tag}</button></li>`).join(" ")}</ul>  
+          <ul class="tags">${this.tags.map(tag => `<li data-filter=${tag} class="tag photographer-tags">#${tag}</li>`).join(" ")}</ul>  
         </div>
       `  
     photographersContainer.appendChild(articlePhotographers);
