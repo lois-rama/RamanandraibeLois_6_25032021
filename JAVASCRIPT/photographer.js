@@ -103,8 +103,8 @@ function incrementLikesOnClick() {
   
       let globalNumberOfLikes = likes.reduce(function(a, b){return a + b;}); // return the sum of the array
   
-      individualLikeBox[index].innerHTML = `<span> ${likesAfterAddition} <i aria-label"Button like" class="fas fa-heart heartIcon"></i></span>`
-      totalLikesDivBox.innerHTML = `<div>${globalNumberOfLikes} <i aria-label"likes total" class="fas fa-heart"></i></div>`
+      individualLikeBox[index].innerHTML = `<span> ${likesAfterAddition} <i aria-label="Button like" class="fas fa-heart heartIcon"></i></span>`
+      totalLikesDivBox.innerHTML = `<div>${globalNumberOfLikes} <i aria-label="likes total" class="fas fa-heart"></i></div>`
     }
       // add the index of liked item to existingLikes Array everytime we click a photo
       existingLikes.push(index)
@@ -126,8 +126,8 @@ function incrementLikesOnEnter() {
   
         let globalNumberOfLikes = likes.reduce(function(a, b){return a + b;}); // return the sum of the array
   
-        individualLikeBox[index].innerHTML = `<span> ${likesAfterAddition} <i class="fas fa-heart heartIcon"></i></span>`
-        totalLikesDivBox.innerHTML = `<div>${globalNumberOfLikes} <i class="fas fa-heart"></i></div>`
+        individualLikeBox[index].innerHTML = `<span> ${likesAfterAddition} <i aria-label="Button like" class="fas fa-heart heartIcon"></i></span>`
+        totalLikesDivBox.innerHTML = `<div>${globalNumberOfLikes} <i aria-label="likes total" class="fas fa-heart"></i></div>`
     }
         // add the index of liked item to existingLikes Array everytime we click a photo
         existingLikes.push(index)

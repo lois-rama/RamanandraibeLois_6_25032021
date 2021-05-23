@@ -86,6 +86,11 @@ header img {
         width: 100px !important;
         height: 100px !important;
     }
+    .tagsProfil{
+        display: flex;
+        flex-direction: column;
+        max-width: fit-content;
+    }
 }
 
 .portraitBox>img{
@@ -410,9 +415,4 @@ div>.price{
 
 .heartIcon{
     cursor: pointer;
-}
-.tagsProfil{
-    display: flex;
-    flex-direction: column;
-    max-width: fit-content;
 }
